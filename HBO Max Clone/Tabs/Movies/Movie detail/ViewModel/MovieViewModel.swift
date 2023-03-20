@@ -6,10 +6,12 @@
 //
 
 import Combine
+import Foundation
 
 class MovieViewModel: ObservableObject {
     @Published private(set) var movie: Movie?
     @Published private(set) var genreName = String()
+    @Published private(set) var trailerPreviewUrl: URL?
     var genres = [Int: String]()
     private var cancellables = Set<AnyCancellable>()
     
@@ -69,7 +71,26 @@ class MovieViewModel: ObservableObject {
         return genreIds.compactMap { genres[$0] }
     }
     
-    /// Fetch detailed information for a movie by its ID and update the MovieViewModel's movie property accordingly
+    private func fetchTrailer(for movieTitle: String, api: ITunesAPI) {
+        api.search(term: movieTitle)
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error fetching movie trailer: \(error.localizedDescription)")
+                case .finished:
+                    break
+                }
+            } receiveValue: { [weak self] (response: ITunesSearchResponse) in
+                if let previewUrlString = response.results.first?.previewUrl,
+                   let previewUrl = URL(string: previewUrlString) {
+                    self?.trailerPreviewUrl = previewUrl
+                } else {
+                    print("No movie trailer found with the given movie title.")
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
     private func fetchDetailedMovie(api: TMDbAPI, movieId: Int) {
         let urlString = "\(api.baseURL)/movie/\(movieId)?api_key=\(api.apiKey)&append_to_response=genres,runtime"
         
@@ -83,6 +104,7 @@ class MovieViewModel: ObservableObject {
                 }
             } receiveValue: { [weak self] (movie: Movie) in
                 self?.movie = movie
+                self?.fetchTrailer(for: movie.title, api: ITunesAPI())
             }
             .store(in: &cancellables)
     }

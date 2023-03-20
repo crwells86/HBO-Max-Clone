@@ -11,7 +11,8 @@ struct ContentView: View {
     var body: some View {
         TabView {
             // Home
-            Text("Tab Content 1")
+            // Home view coming soon.
+            MovieDetailView()
                 .tabItem {
                     Image(systemName: "house")
                 }

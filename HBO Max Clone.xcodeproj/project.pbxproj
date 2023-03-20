@@ -23,6 +23,8 @@
 		008DF8FE29C8C68800537876 /* MovieDetailsOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DF8FD29C8C68800537876 /* MovieDetailsOverlay.swift */; };
 		008DF90029C8C69B00537876 /* MovieDetailsHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DF8FF29C8C69B00537876 /* MovieDetailsHStack.swift */; };
 		008DF90229C8C6AB00537876 /* MovieActionsHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DF90129C8C6AB00537876 /* MovieActionsHStack.swift */; };
+		008DF90429C90E4300537876 /* ITunesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DF90329C90E4300537876 /* ITunesAPI.swift */; };
+		008DF90629C919BD00537876 /* MovieTrailerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008DF90529C919BD00537876 /* MovieTrailerButtonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,8 @@
 		008DF8FD29C8C68800537876 /* MovieDetailsOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsOverlay.swift; sourceTree = "<group>"; };
 		008DF8FF29C8C69B00537876 /* MovieDetailsHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsHStack.swift; sourceTree = "<group>"; };
 		008DF90129C8C6AB00537876 /* MovieActionsHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieActionsHStack.swift; sourceTree = "<group>"; };
+		008DF90329C90E4300537876 /* ITunesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITunesAPI.swift; sourceTree = "<group>"; };
+		008DF90529C919BD00537876 /* MovieTrailerButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTrailerButtonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,7 @@
 				008DF8D229C8C39700537876 /* HBO_Max_CloneApp.swift */,
 				008DF8D429C8C39700537876 /* ContentView.swift */,
 				008DF8F729C8C5F900537876 /* TMDbAPI.swift */,
+				008DF90329C90E4300537876 /* ITunesAPI.swift */,
 				008DF8E029C8C42E00537876 /* Tabs */,
 				008DF8E129C8C44300537876 /* Sample Data */,
 				008DF8D629C8C39800537876 /* Assets.xcassets */,
@@ -176,6 +181,7 @@
 				008DF8FD29C8C68800537876 /* MovieDetailsOverlay.swift */,
 				008DF8FF29C8C69B00537876 /* MovieDetailsHStack.swift */,
 				008DF90129C8C6AB00537876 /* MovieActionsHStack.swift */,
+				008DF90529C919BD00537876 /* MovieTrailerButtonView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -273,8 +279,10 @@
 				008DF8F029C8C53800537876 /* GenresResponse.swift in Sources */,
 				008DF8FE29C8C68800537876 /* MovieDetailsOverlay.swift in Sources */,
 				008DF8F229C8C55100537876 /* Genre.swift in Sources */,
+				008DF90429C90E4300537876 /* ITunesAPI.swift in Sources */,
 				008DF8EE29C8C50F00537876 /* Movie.swift in Sources */,
 				008DF8D329C8C39700537876 /* HBO_Max_CloneApp.swift in Sources */,
+				008DF90629C919BD00537876 /* MovieTrailerButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
