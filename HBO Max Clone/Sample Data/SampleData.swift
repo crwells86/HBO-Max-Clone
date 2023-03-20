@@ -26,8 +26,4 @@ struct SampleData {
     
     
     let viewModel = MovieViewModel()
-    
-    init() {
-        viewModel.genreName = "Action"
-    }
 }

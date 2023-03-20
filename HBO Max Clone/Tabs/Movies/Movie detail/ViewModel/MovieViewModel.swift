@@ -8,14 +8,18 @@
 import Combine
 
 class MovieViewModel: ObservableObject {
-    @Published var movie: Movie?
-    @Published var genreName = String()
+    @Published private(set) var movie: Movie?
+    @Published private(set) var genreName = String()
     var genres = [Int: String]()
     private var cancellables = Set<AnyCancellable>()
     
     /// Fetch movie details based on the query string and update the MovieViewModel's properties accordingly
     func fetchMovieDetails(api: TMDbAPI, query: String) {
-        api.searchMovie(query: query)
+        guard let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
+        
+        let urlString = "\(api.baseURL)/search/movie?api_key=\(api.apiKey)&query=\(encodedQuery)"
+        
+        api.fetchData(urlString: urlString)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -23,7 +27,7 @@ class MovieViewModel: ObservableObject {
                 case .finished:
                     break
                 }
-            } receiveValue: { [weak self] response in
+            } receiveValue: { [weak self] (response: MovieResponse) in
                 guard let movie = response.results.first else {
                     print("No movie found with the given query.")
                     return
@@ -35,6 +39,7 @@ class MovieViewModel: ObservableObject {
             }
             .store(in: &cancellables)
     }
+    
     
     /// Convert the given duration in minutes to a formatted string representing hours and minutes
     func formatMinutesToHoursAndMinutes(_ minutes: Int) -> String {
@@ -66,7 +71,9 @@ class MovieViewModel: ObservableObject {
     
     /// Fetch detailed information for a movie by its ID and update the MovieViewModel's movie property accordingly
     private func fetchDetailedMovie(api: TMDbAPI, movieId: Int) {
-        api.getMovieDetails(movieId: movieId)
+        let urlString = "\(api.baseURL)/movie/\(movieId)?api_key=\(api.apiKey)&append_to_response=genres,runtime"
+        
+        api.fetchData(urlString: urlString)
             .sink { completion in
                 switch completion {
                 case .failure(let error):
@@ -74,7 +81,7 @@ class MovieViewModel: ObservableObject {
                 case .finished:
                     break
                 }
-            } receiveValue: { [weak self] movie in
+            } receiveValue: { [weak self] (movie: Movie) in
                 self?.movie = movie
             }
             .store(in: &cancellables)

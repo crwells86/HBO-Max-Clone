@@ -13,10 +13,11 @@ struct TMDbAPI {
     let baseURL = "https://api.themoviedb.org/3"
     let jsonDecoder = JSONDecoder()
     
-    /// Searches for a movie by query
-    func searchMovie(query: String) -> AnyPublisher<MovieResponse, Error> {
-        guard let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: "\(baseURL)/search/movie?api_key=\(apiKey)&query=\(encodedQuery)") else {
+    /// Fetches data from the specified URL and decodes it into a generic Decodable type.
+    /// - Parameter urlString: A string representing the URL to fetch data from.
+    /// - Returns: A publisher emitting the decoded data of the specified generic Decodable type, or an error if the data could not be fetched or decoded.
+    func fetchData<T: Decodable>(urlString: String) -> AnyPublisher<T, Error> {
+        guard let url = URL(string: urlString) else {
             return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
         }
         
@@ -24,21 +25,7 @@ struct TMDbAPI {
         
         return URLSession.shared.dataTaskPublisher(for: url)
             .map(\.data)
-            .decode(type: MovieResponse.self, decoder: jsonDecoder)
-            .eraseToAnyPublisher()
-    }
-    
-    /// Fetches detailed information of a movie by its id
-    func getMovieDetails(movieId: Int) -> AnyPublisher<Movie, Error> {
-        guard let url = URL(string: "\(baseURL)/movie/\(movieId)?api_key=\(apiKey)&append_to_response=genres,runtime") else {
-            return Fail(error: URLError(.badURL)).eraseToAnyPublisher()
-        }
-        
-        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        return URLSession.shared.dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: Movie.self, decoder: jsonDecoder)
+            .decode(type: T.self, decoder: jsonDecoder)
             .eraseToAnyPublisher()
     }
     
@@ -55,4 +42,3 @@ struct TMDbAPI {
             .eraseToAnyPublisher()
     }
 }
-
