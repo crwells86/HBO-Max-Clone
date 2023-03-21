@@ -81,9 +81,8 @@
 			children = (
 				008DF8D229C8C39700537876 /* HBO_Max_CloneApp.swift */,
 				008DF8D429C8C39700537876 /* ContentView.swift */,
-				008DF8F729C8C5F900537876 /* TMDbAPI.swift */,
-				008DF90329C90E4300537876 /* ITunesAPI.swift */,
 				008DF8E029C8C42E00537876 /* Tabs */,
+				008DF90729CA192E00537876 /* Services */,
 				008DF8E129C8C44300537876 /* Sample Data */,
 				008DF8D629C8C39800537876 /* Assets.xcassets */,
 				008DF8D829C8C39800537876 /* Preview Content */,
@@ -195,6 +194,15 @@
 				008DF8F129C8C55100537876 /* Genre.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		008DF90729CA192E00537876 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				008DF8F729C8C5F900537876 /* TMDbAPI.swift */,
+				008DF90329C90E4300537876 /* ITunesAPI.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
